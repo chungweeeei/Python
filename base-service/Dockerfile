@@ -12,9 +12,7 @@ RUN pip install --upgrade --user setuptools==58.0.0
 RUN apt install -y swig 
 RUN pip3 install colcon-common-extensions
 RUN pip3 install vcstool
-
 RUN pip3 install pipenv 
-
 
 # docker build -t failed on latest version of docker 
 # do not use docker buildkit to build image
