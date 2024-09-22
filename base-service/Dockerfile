@@ -9,7 +9,7 @@ RUN apt-get -y update && \
 RUN pip install --upgrade --user setuptools==58.0.0
 
 # fastdds dependency
-RUN apt install -y swig 
+RUN apt install -y swig cmake
 RUN pip3 install colcon-common-extensions
 RUN pip3 install vcstool
 RUN pip3 install pipenv 
