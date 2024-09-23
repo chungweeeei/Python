@@ -8,6 +8,9 @@ sqlalchemy = "*"
 sqlalchemy_utils = "*"
 psycopg2-binary="*"
 structlog="*"
+pydantic="*"
+pytest="*"
+assertpy="*"
 
 [dev-packages]
 

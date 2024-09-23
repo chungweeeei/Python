@@ -1,5 +1,4 @@
 import structlog
-import itertools
 
 from typing import (
     List,

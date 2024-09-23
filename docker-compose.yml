@@ -39,6 +39,8 @@ services:
   db_client:
     container_name: postgres_client
     image: base-image:latest
+    environment:
+      - PYTHONPATH=/usr/app/postgres_ws/src
     volumes:
       - type: bind
         source: ~/Desktop/Python/postgres_ws
@@ -50,20 +52,35 @@ services:
     networks:
       test_network: 
         ipv4_address: 172.27.0.4
-  fastdds:
-    container_name: fastdds_client
-    image: base-image:latest
-    volumes:
-      - type: bind
-        source: ~/Desktop/Python//fastdds_ws
-        target: /usr/app/fastdds_ws
-        bind:
-          create_host_path: true
-    stdin_open: true
-    tty: true
-    networks:
-      test_network: 
-        ipv4_address: 172.27.0.5
+  # fastdds:
+  #   container_name: fastdds
+  #   image: base-image:latest
+  #   volumes:
+  #     - type: bind
+  #       source: ~/Desktop/Python/fastdds_ws
+  #       target: /usr/app/fastdds_ws
+  #       bind:
+  #         create_host_path: true
+  #   stdin_open: true
+  #   tty: true
+  #   networks:
+  #     test_network: 
+  #       ipv4_address: 172.27.0.5
+  # cyclonedds:
+  #   container_name: cyclonedds
+  #   image: base-image:latest
+  #   volumes:
+  #     - type: bind
+  #       source: ~/Desktop/Python/cyclonedds_ws
+  #       target: /usr/app/cyclonedds_ws
+  #       bind:
+  #         create_host_path: true
+  #   stdin_open: true
+  #   tty: true
+  #   network_mode: host
+  #   networks:
+  #     test_network: 
+  #       ipv4_address: 172.27.0.6
 
 networks:
   test_network:
