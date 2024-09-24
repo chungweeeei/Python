@@ -1,5 +1,7 @@
 import structlog
 
+from typing import List
+
 from sqlalchemy import (
     Engine,
     Column,
@@ -14,6 +16,8 @@ from sqlalchemy.orm import (
     sessionmaker,
     relationship
 )
+
+from sqlalchemy.orm.query import Query
 
 from sqlalchemy.dialects.postgresql import insert as pg_upsert
 
@@ -37,7 +41,6 @@ _USER_REPO_BASE = registry().generate_base()
     In database:
         we can use relationship function to generate relationship between two tables and we also can use join function.
 '''
-
 
 class User(_USER_REPO_BASE):
     __tablename__ = "users"  # table name in the databases
@@ -95,7 +98,7 @@ class UserRepo():
                 self.logger.error(
                     "[UserRepo][register] register user failed. ERROR: {}".format(e))
 
-    def register_address(self, address: Address):
+    def upsert_address(self, address: Address):
 
         with self.session_maker() as session:
             try:
@@ -117,19 +120,20 @@ class UserRepo():
                 self.logger.error(
                     "[UserRepo][register] register user failed. ERROR: {}".format(e))
 
-    def fetch_user_address(self) -> str:
+    def fetch_user_address(self, id: int) -> List[str]:
+
+        user_address = []
 
         with self.session_maker() as session:
             try:
-                user: User = session.query(User).first()
+                user: User = session.query(User).filter(User.id == id).first()
                 for address in user.addresses:
-                    self.logger.info("name: {}, user_name: {}, address: {}".format(
-                        user.name, user.username, address.address))
+                    user_address.append(address.address)
             except Exception as e:
                 session.rollback()
                 self.logger.error(
                     "[UserRepo][fetch_user_address] fetch user address failed. ERROR: {}".format(e))
-
+        return user_address
 
 def setup_user_repo(logger: structlog.stdlib.BoundLogger, engine: Engine) -> UserRepo:
 
@@ -156,8 +160,11 @@ if __name__ == "__main__":
         logger=structlog.get_logger(), engine=pg_engine)
 
     user_repo.register(user=User(id=0, name="Chunwei", username="Andy"))
-    user_repo.register_address(address=Address(
-        id=0, address="New Taipei city", user_id=0))
-    user_repo.register_address(address=Address(
-        id=1, address="Taichung city", user_id=0))
-    user_repo.fetch_user_address()
+    user_repo.register(user=User(id=1, name="Chunkai", username="Kevin"))
+    
+    user_repo.upsert_address(address=Address(id=0, address="New Taipei city", user_id=0))
+    user_repo.upsert_address(address=Address(id=1, address="Taichung city", user_id=0))
+    user_repo.upsert_address(address=Address(id=2, address="New Taipei city", user_id=1))
+    
+    # fetch user address by id
+    addresses = user_repo.fetch_user_address(id=0)

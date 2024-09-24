@@ -11,6 +11,7 @@ structlog="*"
 pydantic="*"
 pytest="*"
 assertpy="*"
+autopep8="*"
 
 [dev-packages]
 
