@@ -4,8 +4,8 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-sqlalchemy = "*"
-sqlalchemy_utils = "*"
+sqlalchemy="*"
+sqlalchemy_utils="*"
 psycopg2-binary="*"
 structlog="*"
 pydantic="*"

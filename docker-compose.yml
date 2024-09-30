@@ -1,86 +1,71 @@
 version: "3.8"
 services:
-  db_server:
-    container_name: postgres_container
-    image: postgres
-    restart: always
-    environment:
-      POSTGRES_USER: root  
-      POSTGRES_PASSWORD: root
-    volumes:
-      - type: bind
-        source: ~/Desktop/Python/pgdata/primary
-        target: /var/lib/postgresql/data
-        bind:
-          create_host_path: true
-    ports:
-      - "5432:5432"
-    networks:
-      test_network: 
-        ipv4_address: 172.27.0.2
-  pgadmin:
-    container_name: pgadmin4_container
-    image: dpage/pgadmin4
-    restart: always
-    environment:
-      PGADMIN_DEFAULT_EMAIL: admin@admin.com
-      PGADMIN_DEFAULT_PASSWORD: root
-    volumes:
-      - type: bind
-        source: ~/Desktop/Python/pgadmin_data
-        target: /var/lib/pgadmin
-        bind:
-          create_host_path: true
-    ports:
-      - "5050:80"
-    networks:
-      test_network: 
-        ipv4_address: 172.27.0.3
+  # db_server:
+  #   container_name: postgres_container
+  #   image: postgres
+  #   restart: always
+  #   environment:
+  #     POSTGRES_USER: root  
+  #     POSTGRES_PASSWORD: root
+  #   volumes:
+  #     - type: bind
+  #       source: ~/Desktop/Python/postgres_learning/pgdata/primary
+  #       target: /var/lib/postgresql/data
+  #       bind:
+  #         create_host_path: true
+  #   ports:
+  #     - "5432:5432"
+  #   networks:
+  #     test_network: 
+  #       ipv4_address: 172.27.0.2
+  # pgadmin:
+  #   container_name: pgadmin4_container
+  #   image: dpage/pgadmin4
+  #   restart: always
+  #   environment:
+  #     PGADMIN_DEFAULT_EMAIL: admin@admin.com
+  #     PGADMIN_DEFAULT_PASSWORD: root
+  #   volumes:
+  #     - type: bind
+  #       source: ~/Desktop/Python/postgres_learning/pgadmin_data
+  #       target: /var/lib/pgadmin
+  #       bind:
+  #         create_host_path: true
+  #   ports:
+  #     - "5050:80"
+  #   networks:
+  #     test_network: 
+  #       ipv4_address: 172.27.0.3
+  # db_client:
+  #   container_name: postgres_client
+  #   image: base-image:latest
+  #   environment:
+  #     - PYTHONPATH=/usr/app/postgres_ws/src
+  #   volumes:
+  #     - type: bind
+  #       source: ~/Desktop/Python/postgres_learning/postgres_ws
+  #       target: /usr/app/postgres_ws
+  #       bind:
+  #         create_host_path: true
+  #   stdin_open: true
+  #   tty: true
+  #   networks:
+  #     test_network: 
+  #       ipv4_address: 172.27.0.4
   db_client:
-    container_name: postgres_client
+    container_name: python-learning
     image: base-image:latest
-    environment:
-      - PYTHONPATH=/usr/app/postgres_ws/src
     volumes:
       - type: bind
-        source: ~/Desktop/Python/postgres_ws
-        target: /usr/app/postgres_ws
+        source: ~/Desktop/Python/builtin-lib_learning
+        target: /usr/app/src
         bind:
           create_host_path: true
     stdin_open: true
     tty: true
     networks:
       test_network: 
-        ipv4_address: 172.27.0.4
-  # fastdds:
-  #   container_name: fastdds
-  #   image: base-image:latest
-  #   volumes:
-  #     - type: bind
-  #       source: ~/Desktop/Python/fastdds_ws
-  #       target: /usr/app/fastdds_ws
-  #       bind:
-  #         create_host_path: true
-  #   stdin_open: true
-  #   tty: true
-  #   networks:
-  #     test_network: 
-  #       ipv4_address: 172.27.0.5
-  # cyclonedds:
-  #   container_name: cyclonedds
-  #   image: base-image:latest
-  #   volumes:
-  #     - type: bind
-  #       source: ~/Desktop/Python/cyclonedds_ws
-  #       target: /usr/app/cyclonedds_ws
-  #       bind:
-  #         create_host_path: true
-  #   stdin_open: true
-  #   tty: true
-  #   network_mode: host
-  #   networks:
-  #     test_network: 
-  #       ipv4_address: 172.27.0.6
+        ipv4_address: 172.27.0.5
 
 networks:
   test_network:
