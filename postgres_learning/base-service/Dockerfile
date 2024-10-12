@@ -1,4 +1,4 @@
-FROM ubuntu-fastdds:v2.14.2
+FROM ubuntu:22.04
 
 USER root
 
@@ -13,7 +13,6 @@ RUN apt install -y swig cmake net-tools byobu
 RUN pip3 install colcon-common-extensions
 RUN pip3 install vcstool
 RUN pip3 install pipenv 
-RUN pip3 install cyclonedds
 
 # docker build -t failed on latest version of docker 
 # do not use docker buildkit to build image

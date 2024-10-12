@@ -52,12 +52,12 @@ services:
   #   networks:
   #     test_network: 
   #       ipv4_address: 172.27.0.4
-  db_client:
+  test:
     container_name: python-learning
     image: base-image:latest
     volumes:
       - type: bind
-        source: ~/Desktop/Python/builtin-lib_learning
+        source: ~/Desktop/Python
         target: /usr/app/src
         bind:
           create_host_path: true

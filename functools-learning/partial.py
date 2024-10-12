@@ -75,5 +75,3 @@ if __name__ == "__main__":
     request_without_partial()
     request_with_partial()
     reqeust_with_multiple_partial()
-    
-    ## {TODO} implement some parctical examples
